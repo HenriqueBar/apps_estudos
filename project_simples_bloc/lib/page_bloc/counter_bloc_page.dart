@@ -31,7 +31,7 @@ class CounterBlocPage extends StatelessWidget {
                   context.read<CounterBloc>().add(CounterIncrement());
                 }, icon: const Icon(Icons.add)),
                 IconButton(onPressed: () {
-                  context.read()<CounterBloc>().add(CounterDecrement());
+                  context.read<CounterBloc>().add(CounterDecrement());
                 }, icon: const Icon(Icons.remove)),
               ],
             )
