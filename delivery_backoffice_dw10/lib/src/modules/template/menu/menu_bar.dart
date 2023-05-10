@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+
+import '../../../core/ui/helpers/size_extensions.dart';
+import 'menu_button.dart';
+import 'menu_enum.dart';
+
+class MenuBar extends StatefulWidget {
+  const MenuBar({Key? key}) : super(key: key);
+
+  @override
+  State<MenuBar> createState() => _MenuBarState();
+}
+
+class _MenuBarState extends State<MenuBar> {
+  Menu? _selectedMenu;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: context.percentWidth(.18),
+      height: double.infinity,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.keyboard_double_arrow_right),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ListView.builder(
+            //para listas pequenas podemos usar shrinkWrap, pois ele não se tornar problematico.
+            // e o motivo de usa-lo aqui é pelo problema de tamanho da lista e da column que podem ser infinitos
+            shrinkWrap: true,
+            itemCount: Menu.values.length,
+            itemBuilder: (context, index) {
+              final menu = Menu.values[index];
+              return MenuButton(
+                menu: menu,
+                menuSelected: _selectedMenu,
+                onPressed: (Menu menuValue) {
+                  setState(() {
+                    _selectedMenu = menuValue;
+                  });
+                },
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
