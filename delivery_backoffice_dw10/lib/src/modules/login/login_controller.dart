@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:mobx/mobx.dart';
 
@@ -11,7 +10,7 @@ enum LoginStateStatus {
   initial,
   loading,
   success,
-  error;
+  error,
 }
 
 class LoginController = LoginControllerBase with _$LoginController;

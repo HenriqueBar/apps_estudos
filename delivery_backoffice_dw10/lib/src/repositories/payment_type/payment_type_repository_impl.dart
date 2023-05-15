@@ -16,13 +16,13 @@ class PaymentTypeRepositoryImpl implements PaymentTypeRepository {
   Future<List<PaymentTypeModel>> findAll(bool? enabled) async {
     try {
       final pymentResult = await _dio.auth().get(
-        '/payment-type',
+        '/payment-types',
         queryParameters: {
           if (enabled != null) 'enabled': enabled,
         },
       );
       return pymentResult.data
-          .map((paymant) => PaymentTypeModel.fromMap(paymant))
+          .map<PaymentTypeModel>((paymant) => PaymentTypeModel.fromMap(paymant))
           .toList();
     } on DioError catch (e, s) {
       log('Erro ao buscar formas de pagamento', error: e, stackTrace: s);
@@ -34,7 +34,7 @@ class PaymentTypeRepositoryImpl implements PaymentTypeRepository {
   Future<PaymentTypeModel> getById(int id) async {
     try {
       final pymentResult = await _dio.auth().get(
-            '/payment-type/$id',
+            '/payment-types/$id',
           );
       return PaymentTypeModel.fromMap(pymentResult.data);
     } on DioError catch (e, s) {
@@ -51,12 +51,12 @@ class PaymentTypeRepositoryImpl implements PaymentTypeRepository {
       final client = _dio.auth();
       if (model.id != null) {
         await client.put(
-          '/payment-type/${model.id}',
+          '/payment-types/${model.id}',
           data: model.toMap(),
         );
       } else {
         await client.post(
-          '/payment-type/',
+          '/payment-types/',
           data: model.toMap(),
         );
       }
